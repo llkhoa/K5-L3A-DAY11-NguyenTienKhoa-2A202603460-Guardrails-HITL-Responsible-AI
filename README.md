@@ -1,5 +1,36 @@
 # Day 11 — Controlled Agent Security (2026)
 
+**Bài làm:** Nguyễn Tiến Khoa · MSSV **2A202603460** · Lớp **K5-L3A**.
+
+Chạy từ thư mục gốc sau khi đã cấu hình `.env` và cài dependency:
+
+```powershell
+.\.venv\Scripts\Activate.ps1
+$env:PYTHONIOENCODING = "utf-8"
+python src/main.py --part 2
+python src/main.py --part 3
+python src/main.py --part 4
+python -m pytest tests/smoke tests/public tests/test_student_guardrails.py -q
+python scripts/grade.py --submission-dir . --out outputs/grade_report.json
+```
+
+Code CP2 chuẩn hóa Unicode/tiếng Việt, lọc injection/chủ đề và che PII/secret.
+CP3 gọi input callbacks với từng `user_id`, sau đó gọi Blue với output plugin;
+audit và monitoring là observer, ghi cả request bị chặn trước model.
+Rate-limit dùng cửa sổ trượt với đồng hồ monotonic. Trong bài kiểm tra spam,
+`passed` là số request qua **rate limiter**; các probe sau đó bị bộ lọc chủ đề chặn
+để không tốn thêm API. Egress kiểm tra chính xác HTTPS/host/port và payload;
+không thực hiện chuyển tiền hoặc gửi dữ liệu thật.
+
+CP4 có 5 prompt theo 5 kỹ thuật; prompt không chứa trọn secret đích để tránh
+nhầm việc model lặp lại dữ liệu đầu vào thành khai thác thành công. Prompt thứ 5
+là nhiều bước trong một lượt hỏi, không phải hội thoại nhiều lượt.
+Hãy đọc/chỉnh prompt theo ý tưởng của mình và hiểu code trước khi nộp theo RULES.md.
+
+Kết quả nộp được sinh bằng lệnh, báo cáo nằm ở `outputs/lab_report.md`.
+Nếu provider báo HTTP 429, đợi rồi chạy lại checkpoint tương ứng; CP3 không ghi
+`results.json` mới khi API thất bại. Giữ nguyên model Blue theo yêu cầu đề.
+
 > 👤 **Hình thức:** bài tập **cá nhân** (1 người / 1 MSSV).  
 > 🎯 **Mục tiêu:** đóng vai **Blue Team** để học cách xây Guardrails phòng thủ, rồi đóng vai **Red Team** để tấn công agent **Red** hoặc **Red Advance**.  
 > ✅ Làm theo **Checkpoint 1 → 5** trong [`CHECKPOINTS.md`](CHECKPOINTS.md) · nộp theo [`SUBMISSION.md`](SUBMISSION.md).
