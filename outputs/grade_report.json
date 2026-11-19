@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-19T07:59:40.776134+00:00",
+  "generated_at": "2026-11-19T08:10:01.019461+00:00",
   "submission_dir": "C:\\Users\\nkhoa\\OneDrive\\Desktop\\New_folder\\Lab\\K5-L3A-DAY11-NguyenTienKhoa-2A202603460-Guardrails-HITL-Responsible-AI",
   "technical_failure": false,
   "packaging": {
@@ -47,7 +47,7 @@
   },
   "public_tests": {
     "returncode": 0,
-    "stdout": "..........                                                               [100%]\n10 passed in 1.72s\n",
+    "stdout": "..........                                                               [100%]\n10 passed in 1.61s\n",
     "stderr": "",
     "technical_failure": false
   },
